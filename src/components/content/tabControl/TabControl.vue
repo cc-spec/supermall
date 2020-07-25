@@ -34,7 +34,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   #tab-control {
     position: relative;
     display: flex;

@@ -55,8 +55,8 @@ export default {
   },
   data() {
     return {
-      banners : [],
-      recommend : [],
+      banners: [],
+      recommend: [],
       goods: {
         'pop': {page: 0, list: []}, //流行
         'new': {page: 0, list: []}, //新款
