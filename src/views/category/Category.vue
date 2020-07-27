@@ -1,6 +1,6 @@
 <template>
   <div id="category">
-    <nav-bar><div class="category-nav" slot="left">更多商品</div></nav-bar>
+    <nav-bar class="nav"><div class="category-nav" slot="left">更多商品</div></nav-bar>
     <category-tab-control id="category-tab"></category-tab-control>
   </div>
 </template>
@@ -23,9 +23,12 @@ export default {
 </script>
 
 <style scoped>
+  .nav {
+    color: #fff;
+    background-color: var(--color-tint);
+  }
   .category-nav {
     width: 100px;
-    padding: 5px;
   }
   #category #category-tab{
     display: flex;

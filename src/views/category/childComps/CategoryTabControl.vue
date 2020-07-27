@@ -22,7 +22,10 @@ export default {
         '洗护',
         '百货',
         '家电',
-        '电脑'
+        '电脑',
+        '手机',
+        '电视',
+        '冰箱'
       ]
     }
   }
@@ -31,8 +34,8 @@ export default {
 
 <style scoped>
   .tab-control {
-    height: 50px;
+    height: 40px;
     width: 100px;
-    line-height: 50px;
+    line-height: 40px;
   }
 </style>
