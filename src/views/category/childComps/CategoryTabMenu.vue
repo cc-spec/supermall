@@ -1,12 +1,10 @@
 <template>
-  <scroll class="content">
-    <div class="tab-menu">
-      <div v-for="(item, index) of category" :key="index"
-        class="menu-item"
-        @click="clickMenu(index)"
-        :class="{active: currentIndex === index}">
-        <span>{{item.title}}</span>
-      </div>
+  <scroll class="tab-menu content">
+    <div v-for="(item, index) of category" :key="index"
+      class="menu-item"
+      @click="clickMenu(index)"
+      :class="{active: currentIndex === index}">
+      <span>{{item.title}}</span>
     </div>
   </scroll>
 </template>
@@ -44,6 +42,7 @@ export default {
   .tab-menu {
     height: 100vh;
     width: 100px;
+    background-color: #f3f3f3;
   }
   .menu-item {
     width: 100px;
@@ -53,7 +52,7 @@ export default {
     display: block;
     width: 100px;
     line-height: 40px;
-    padding-left: 20px;
+    text-align: center;
   }
   .active {
     color: var(--color-tint);
