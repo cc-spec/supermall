@@ -33,6 +33,7 @@ export default {
   methods: {
     clickMenu(index) {
       this.currentIndex = index
+      this.$emit('menuClick', index)
     }
   }
 }

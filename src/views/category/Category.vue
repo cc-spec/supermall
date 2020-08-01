@@ -1,16 +1,23 @@
 <template>
   <div id="category">
-    <nav-bar class="nav"><div class="category-nav" slot="left">更多商品</div></nav-bar>
+    <nav-bar class="category-nav"><div slot="center">更多商品</div></nav-bar>
     <div class="content">
       <div class="left">
-        <category-tab-menu id="category-tab" :category="category"/>
+        <category-tab-menu id="category-tab"
+          :category="category"
+          @menuClick="menuClick"/>
       </div>
       <div class="right">
-        <div :data=[categoryData]>
-          <category-content-subcategory :subcategories="showSubcategory"/>
-          <tab-control :title="['综合', '新品', '销量']"></tab-control>
-          <category-content-detail :category-detail="showCategoryDetail"/>
-        </div>
+        <scroll class="content">
+          <div :data=[categoryData]>
+            <category-content-subcategory :subcategories="showSubcategory"/>
+            <tab-control
+              :title="['综合', '新品', '销量']"
+              @tabClick="tabClick"
+              ref="tabControl"/>
+            <category-content-detail :category-detail="showCategoryDetail"/>
+          </div>
+        </scroll>
       </div>
     </div>
   </div>
@@ -23,6 +30,7 @@ import CategoryContentDetail from './childComps/CategoryContentDetail'
 
 import NavBar from 'components/common/navbar/NavBar'
 import TabControl from 'components/content/tabControl/TabControl'
+import Scroll from 'components/common/scroll/Scroll'
 
 import {getCategory, getSubcategory, getCategoryDetail} from 'network/category'
 
@@ -33,13 +41,15 @@ export default {
     CategoryContentSubcategory,
     CategoryContentDetail,
     NavBar,
-    TabControl
+    TabControl,
+    Scroll
   },
   data() {
     return {
       category: [],
       categoryData: {},
-      currentIndex: -1
+      currentIndex: -1,
+      currentType: 'pop'
     }
   },
   created() {
@@ -52,14 +62,30 @@ export default {
     },
     showCategoryDetail() {
       if (this.currentIndex === -1) return []
-      return this.categoryData[this.currentIndex].categoryDetail['pop']
+      return this.categoryData[this.currentIndex].categoryDetail[this.currentType]
     }
   },
   methods: {
     /**
      * 事件监听相关方法
     **/
-
+    menuClick(index) {
+      this.getSubcategory(index)
+    },
+    tabClick(index) {
+      switch(index) {
+        case 0:
+          this.currentType = 'pop'
+          break
+        case 1:
+          this.currentType = 'new'
+          break
+        case 2:
+          this.currentType = 'sell'
+          break
+      }
+      this.$refs.tabControl.currentIndex = index
+    },
     /**
      * 网络请求相关方法
     **/
@@ -106,16 +132,10 @@ export default {
 </script>
 
 <style scoped>
-  .nav {
-    position: fixed;
-    width: 100vh;
+  .category-nav {
     color: #fff;
     background-color: var(--color-tint);
     z-index: 20;
-  }
-  .category-nav {
-    width: 100px;
-    padding-left: 30px;
   }
   #category #category-tab{
     display: flex;
@@ -126,5 +146,12 @@ export default {
   }
   #category .content .right {
     float: right;
+  }
+  .right .content {
+    position: absolute;
+    top: 44px;
+    bottom: 49px;
+    left: 100px;
+    right: 0;
   }
 </style>
