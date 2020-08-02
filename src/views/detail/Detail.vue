@@ -15,6 +15,7 @@
       <goods-list :goods="recommend" ref="recommend"/>
     </scroll>
 
+    <back-top @click.native="backClick" v-show="isShowBackTop"/>
     <detail-bottom-bar   @addCart="addToCart"/>
   </div>
 </template>
@@ -33,8 +34,10 @@ import DetailBottomBar from './childComps/DetailBottomBar'
 
 import Scroll from 'components/common/scroll/Scroll'
 import GoodsList from 'components/content/goods/GoodsList'
+import BackTop from 'components/content/backTop/BackTop'
 
 import {debounce} from 'common/utils.js'
+import {backTopMixin} from 'common/mixin.js'
 
 export default {
   name: 'Detail',
@@ -49,6 +52,7 @@ export default {
     DetailBottomBar,
     Scroll,
     GoodsList,
+    BackTop
   },
   data() {
     return {
@@ -66,6 +70,7 @@ export default {
       currentIndex: 0
     }
   },
+  mixins: [backTopMixin],
   created() {
     // 1. 保存iid
     this.iid = this.$route.params.iid
@@ -137,6 +142,10 @@ export default {
           this.$refs.nav.currentIndex = this.currentIndex
         }
       }
+
+      // 回到顶部
+      this.isShowBackTop = (-position.y) > 1000
+      this.isTabFixed = (-position.y) > this.tabOffsetTop
     },
     addToCart() {
       // 1. 获取购物车界面需要展示的数据

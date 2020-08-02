@@ -40,6 +40,7 @@ import Scroll from 'components/common/scroll/Scroll'
 import BackTop from 'components/content/backTop/BackTop'
 
 import {getHomeMultidata, getHomeGoods} from 'network/home'
+import {backTopMixin} from 'common/mixin'
 
 export default {
   name: 'Home',
@@ -63,12 +64,13 @@ export default {
         'sell': {page: 0, list: []} //精选
       },
       currentType: 'pop',
-      isShowBackTop: false,
+      // isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       saveY: 0
     }
   },
+  mixins: [backTopMixin],
   computed: {
     showGoods() {
       return this.goods[this.currentType].list
@@ -109,9 +111,9 @@ export default {
       this.$refs.tabControl1.currentIndex = index
       this.$refs.tabControl2.currentIndex = index
     },
-    backClick() {
-      this.$refs.scroll.scrollTo(0, 0, 500)
-    },
+    // backClick() {
+    //   this.$refs.scroll.scrollTo(0, 0, 500)
+    // },
     contentScroll(position) {
       this.isShowBackTop = (-position.y) > 1000
       this.isTabFixed = (-position.y) > this.tabOffsetTop

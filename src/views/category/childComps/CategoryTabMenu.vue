@@ -1,22 +1,17 @@
 <template>
-  <scroll class="tab-menu content">
+  <div class="tab-menu">
     <div v-for="(item, index) of category" :key="index"
       class="menu-item"
       @click="clickMenu(index)"
       :class="{active: currentIndex === index}">
       <span>{{item.title}}</span>
     </div>
-  </scroll>
+  </div>
 </template>
 
 <script>
-import Scroll from 'components/common/scroll/Scroll'
-
 export default {
   name: 'CategoryTabMenu',
-  components: {
-    Scroll
-  },
   props: {
     category: {
       type: Array,
@@ -41,7 +36,6 @@ export default {
 
 <style scoped>
   .tab-menu {
-    height: 100vh;
     width: 100px;
     background-color: #f3f3f3;
   }
@@ -60,13 +54,5 @@ export default {
   }
   .active span {
     border-left: 2px solid var(--color-tint);
-  }
-  .content {
-    position: absolute;
-    top: 44px;
-    bottom: 49px;
-    left: 0;
-    right: 0;
-    /* overflow: hidden; */
   }
 </style>

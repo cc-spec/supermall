@@ -1,14 +1,16 @@
 <template>
   <div id="category">
     <nav-bar class="category-nav"><div slot="center">更多商品</div></nav-bar>
-    <div class="content">
+    <div class="category-content">
       <div class="left">
-        <category-tab-menu id="category-tab"
-          :category="category"
-          @menuClick="menuClick"/>
+        <scroll class="content" ref="left-scroll">
+          <category-tab-menu id="category-tab"
+            :category="category"
+            @menuClick="menuClick"/>
+        </scroll>
       </div>
       <div class="right">
-        <scroll class="content">
+        <scroll class="content" ref="right-scroll">
           <div :data=[categoryData]>
             <category-content-subcategory :subcategories="showSubcategory"/>
             <tab-control
@@ -141,17 +143,23 @@ export default {
     display: flex;
     flex-direction: column;
   }
-  #category .content .left{
+  #category .category-content .left{
     float: left;
   }
-  #category .content .right {
+  #category .category-content .right {
     float: right;
   }
-  .right .content {
+  .right .content,
+  .left .content {
     position: absolute;
     top: 44px;
     bottom: 49px;
-    left: 100px;
     right: 0;
+  }
+  .left .content {
+    left: 0;
+  }
+  .right .content {
+    left: 100px;
   }
 </style>
